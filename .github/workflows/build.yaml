@@ -81,7 +81,7 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: |
-            quay.io/redhat-appstudio/service-provider-integration-oauth
+            quay.io/raja0940/service-provider-integration-oauth
           tags: |
             type=semver,pattern={{version}}
             type=sha,format=long
