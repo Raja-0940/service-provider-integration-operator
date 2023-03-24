@@ -25,6 +25,10 @@ on:
 jobs:
 
   build-imgs:
+    strategy:
+      matrix:
+        architecture: [amd64, ppc64le]
+        platform: [linux]
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout service-provider-integration-operator source code
@@ -66,6 +70,8 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           platforms: linux/amd64,linux/ppc64le
           tags: ${{ steps.meta_operator.outputs.tags }}
+          build-args: |
+            ARCH=${{ matrix.architecture }}
           labels: ${{ steps.meta_operator.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
@@ -87,6 +93,8 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           platforms: linux/amd64,linux/ppc64le
           tags: ${{ steps.meta_oauth.outputs.tags }}
+          build-args: |
+            ARCH=${{ matrix.architecture }}
           labels: ${{ steps.meta_oauth.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max

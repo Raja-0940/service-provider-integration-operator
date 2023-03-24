@@ -2,6 +2,7 @@
 FROM golang:1.19 as builder
 
 WORKDIR /workspace
+ARG ARCH=amd64
 # Copy the Go Modules manifests
 COPY go.mod go.mod
 COPY go.sum go.sum
@@ -19,7 +20,7 @@ COPY oauth/ oauth/
 
 
 # Build
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o bin/ -a ./cmd/oauth/oauth.go
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=${ARCH} go build -o bin/ -a ./cmd/oauth/oauth.go
 
 # Compose the final image of spi-oauth service
 FROM registry.access.redhat.com/ubi8/ubi-minimal:8.7-1085 as spi-oauth

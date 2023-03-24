@@ -2,6 +2,7 @@
 FROM golang:1.19 as builder
 
 WORKDIR /workspace
+ARG ARCH=amd64
 # Copy the Go Modules manifests
 COPY go.mod go.mod
 COPY go.sum go.sum
@@ -17,7 +18,7 @@ COPY pkg/ pkg/
 COPY controllers/ controllers/
 
 # Build
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o bin/ -a ./cmd/operator/operator.go
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=${ARCH} go build -o bin/ -a ./cmd/operator/operator.go
 
 # Compose the final image of spi-operator.
 # !!! This must be last one, because we want simple `docker build .` to build the operator image.
