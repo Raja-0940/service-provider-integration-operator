@@ -58,7 +58,7 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: |
-            quay.io/redhat-appstudio/service-provider-integration-operator
+            quay.io/raja0940/service-provider-integration-operator
           tags: |
             type=semver,pattern={{version}}
             type=sha,format=long
